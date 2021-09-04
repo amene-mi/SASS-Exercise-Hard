@@ -1,0 +1,9 @@
+@use '../utils/variables' as size;
+@use '../utils/mixins';
+
+html {
+    @include fluid-type(size.$min_width, size.$max_width,
+    size.$min_font, size.$max_font);
+    direction: opposite-direction($direction);
+    }
+

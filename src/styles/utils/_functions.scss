@@ -1,0 +1,34 @@
+@use 'sass:math';
+
+/// @param {List} $directions 
+/// @return {List} 
+
+@function opposite-direction($directions) {
+    $opposite-directions: ();
+    $direction-map: (
+      'top':    'bottom',
+      'right':  'left',
+      'bottom': 'top',
+      'left':   'right',
+      'center': 'center',
+      'ltr':    'rtl',
+      'rtl':    'ltr'
+    );
+   
+    @each $dir in $directions {
+      $dir : to-lower-case($dir);
+      
+      @if map-has-key($direction-map, $dir) { 
+        $opposite-directions: append($opposite-directions, unquote(map-get($direction-map, $dir)));
+      } @else {
+        @warn "No opposite direction can be found for `#{$dir}`. Direction omitted.";
+      }
+    }
+   
+    @return $opposite-directions;
+  }
+
+  @function strip-unit($value) {
+    @return math.div($value, $value * 0 + 1);
+  }
+  
